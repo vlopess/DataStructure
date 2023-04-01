@@ -24,12 +24,12 @@ int main(){
     char splitHere[] = " (,)";
     char point[] = "points";    
     char text[20];
-    int i, j, c, k;
+    int i, j, c;
     float distance, shortcut;
     int number[100];
     float noSort[100];
     float distances[100];
-    i = j = c = k = 0;    
+    i = j = c= 0;    
     distance = shortcut = 0;
     //points (−2,−1) (4,2) (4,0) (2,2) (8,6)
     char *p = strtok(file, point);
@@ -42,16 +42,17 @@ int main(){
       slice  =  strtok(NULL, splitHere);         
     }   
     i--;
-    for(int c = 0; c <= i && c < i - 1;c = c + 2){
+    for(int c = 0; c < i - 3;c = c + 2){
       distance+= distanceCalc(number[c], number[c + 1], number[c + 2], number[c + 3]);      
     }
     printf("%d\n", i);  
     for(int c = 0; c < i;c += 2){      
       distances[j] = distanceCalc(number[c], number[c + 1], 0, 0); 
-      noSort[j] = distanceCalc(number[c], number[c + 1], 0, 0); 
+      noSort[j] = distanceCalc(number[c], number[c + 1], 0, 0);
       j++;
     }
     insertionSort(distances, j);
+
     printf("%d\n", j);  
     for(int c = 0; c<j ;c++){
       printf("%2.2f\t\t\t", distances[c]);
@@ -61,9 +62,16 @@ int main(){
     sprintf(text, "points ");
     fputs(text, fp_out);
 
-    for(int c = 0; c <= j; c++){   
-      k = 0;
-      for(int a = 0; a <= j ; k += 2 , a++){
+    // for (int i = 0; i < j; i++)
+    // {
+    //   sprintf(text, "(%d,%d) ", number[index[i]], number[index[i]+1]);
+    //   fputs(text, fp_out);
+    // }
+    
+
+    for(int c = 0; c < j; c++){   
+      int k = 0;
+      for(int a = 0; a < j ; k += 2 , a++){
         if(distances[c] == noSort[a]){
           sprintf(text, "(%d,%d) ", number[k], number[k+1]);
           fputs(text, fp_out);
@@ -77,7 +85,7 @@ int main(){
     sprintf(text, "%2.2f  ", distance);
     fputs(text, fp_out);
     
-    shortcut = distanceCalc(number[0], number[1], number[i - 1], number[i]);
+    shortcut = distanceCalc(number[0], number[1], number[i - 2], number[i - 1]);
     //printf("%d %d %d %d\n", number[0], number[1], number[i - 2], number[i - 1]);
     //printf("%2.2f\n", shortcut);
     sprintf(text, "%s", "shortcut: ");
@@ -107,7 +115,7 @@ void insertionSort(float A[], int length)
      for (j = 1; j < length; j++)
      {
           float key = A[j];
-          int i = j - 1;          
+          int i = j - 1;
           while (i >= 0 && A[i] > key)
           {
                A[i + 1] = A[i];
