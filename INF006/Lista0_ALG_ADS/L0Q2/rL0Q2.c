@@ -9,7 +9,6 @@ int isNumber(char ch[]);
 int isPoint(char ch[]);
 
 int main(){
-  setlocale(LC_ALL, "");
   FILE *fp_in  = fopen("L0Q2.in", "r");
   FILE *fp_out = fopen("L0Q2.out", "w");
   
@@ -19,28 +18,70 @@ int main(){
   }
     
     char file[255];
-    char splitHere[] = " ";
-    char *slice;
-    char copy[255];
+    
     //maria 3.15 jose 4 8 −1 12.7 −1,−1 julia (−0.5 ,−0.5)
-    while(fgets(file, 255, fp_in) != NULL) {  
-      slice = strtok(file, splitHere);
+    while(fgets(file, 255, fp_in) != NULL){
+
+      char string[100][255];
+      int stringIndex = 0;
+      char point[100][255];
+      int pointIndex = 0;
+      float floats[255];
+      int floatsIndex = 0;
+      int ints[255];
+      int intsIndex = 0;
+      char *slice;
+      char text[100];
+
+      slice = strtok(file," ");
       while (slice != NULL){ 
-        strcpy(copy, slice);
-        //printf(">: %s\n", copy);
-        if(isNumber(copy)){
+        if(isNumber(slice)){
           if(strstr(slice, ".") == NULL){
-            printf("Number int: %s\n", slice);
+            ints[intsIndex] = atoi(slice);         
+            intsIndex++;            
           }else{
-            printf("Number float: %s\n", slice);
+            floats[floatsIndex] = atof(slice);
+            floatsIndex++;            
           }                
-        }else if (isPoint(copy)){
-          printf("Point: %s\n", slice);
+        }else if (isPoint(slice)){
+          strcpy(point[pointIndex], slice);
+          pointIndex++;          
         }else{
-          printf("String: %s\n", slice);
+          strcpy(string[stringIndex],slice);
+          stringIndex++;          
         }
-        slice = strtok(NULL, splitHere);        
+        slice = strtok(NULL, " ");
+        printf("\n%s", slice);      
       }
+      sprintf(text, "%s", "str:");      
+      fputs(text, fp_out);
+      for (int i = 0; i < stringIndex; i++)
+      {
+        sprintf(text, "%s ", string[i]);
+        fputs(text, fp_out);
+      }
+      sprintf(text, " %s", "int:");
+      fputs(text, fp_out);
+      for (int i = 0; i < intsIndex; i++)
+      {
+        sprintf(text, "%d ", ints[i]);
+        fputs(text, fp_out);
+      }
+      sprintf(text, "%s", "float:");
+      fputs(text, fp_out);
+      for (int i = 0; i < floatsIndex; i++)
+      {
+        sprintf(text, "%2.2f ", floats[i]);
+        fputs(text, fp_out);
+      }
+      sprintf(text, "%s", "p:");
+      fputs(text, fp_out);
+      for (int i = 0; i < pointIndex; i++)
+      {
+        sprintf(text, "%s", point[i]);
+        fputs(text, fp_out);
+      }
+
       fclose(fp_in);
       fclose(fp_out);
       return EXIT_SUCCESS;
