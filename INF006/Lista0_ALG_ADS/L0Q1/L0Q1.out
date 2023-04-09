@@ -1,6 +1,7 @@
-points (-2,-1) (2,2) (4,0) (4,2) (8,6) distance: 18.75  shortcut: 12.21
-points (-2,-1) (2,2) (4,0) (4,2) (8,6) distance: 18.75  shortcut: 12.21
-points (-2,-1) (2,2) (4,0) (4,2) (8,6) distance: 18.75  shortcut: 12.21
-points (0,0) (1,0) (4,2) (7,7) (1,16) distance: 28.11  shortcut: 16.03
-points (-2,-1) (8,6) distance: 12.21  shortcut: 12.21
-points (-2,-1) (-2,-2) (-4,0) (-4,-2) (-8,-6) distance: 14.28  shortcut: 7.81
+points (-2,-1)  (2,2)  (4,0)  (4,2)  (8,6)  distance: 18.75  shortcut: 12.21
+points (-2,-1)  (8,6)  distance: 12.21  shortcut: 12.21
+points (-2,-1)  (4,2)  distance: 6.71  shortcut: 6.71
+points (4,0)  (4,0)  distance: 2.00  shortcut: 2.00
+points (2,2)  (4,2)  distance: 2.83  shortcut: 2.83
+points (2,2)  (8,6)  distance: 7.21  shortcut: 7.21
+points (6,6)  distance: 0.00  shortcut: 0.00
