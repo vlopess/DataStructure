@@ -30,7 +30,6 @@ int main(){
     while(fgets(file, 255, fp_in) != NULL) {
       char string[100][255];
       int stringIndex = 0;
-      //char point[100][255];
       int pointIndex = 0;
       float floats[255];
       int floatsIndex = 0;
@@ -38,6 +37,7 @@ int main(){
       int intsIndex = 0;
       char *slice;
       char text[25555];
+      char copy[255];
       float point[100];
       float noSort[100];
       float distances[100];
@@ -73,58 +73,55 @@ int main(){
       insertionSort(distances, j);
       ordenaFloats(floats, floatsIndex);
       ordenaInteiros(ints, intsIndex);
-      //ordenaString(string, stringIndex);
+      ordenaString(string, stringIndex);
       ordenarPontos(distances, noSort, point, j, pointIndex);
 
-      sprintf(text, "%s", "str:");      
-      fputs(text, fp_out);
+      sprintf(text, "%s", "");
+      sprintf(copy, "%s", "str:");
+      strcat(text, copy); 
       for (int i = 0; i < stringIndex; i++)
       {
-        sprintf(text, "%s ", string[i]);
-        fputs(text, fp_out);
+        sprintf(copy, "%s ", string[i]);
+        strcat(text, copy);
       }
-      sprintf(text, " %s", "int:");
-      fputs(text, fp_out);
+      strcat(text, "int:");       
       for (int i = 0; i < intsIndex; i++)
       {
-        sprintf(text, "%d ", ints[i]);
-        fputs(text, fp_out);
+        sprintf(copy, "%d ",ints[i]);
+        strcat(text, copy);
       }
-      sprintf(text, "%s", "float:");
-      fputs(text, fp_out);
+      strcat(text, "float:");
       for (int i = 0; i < floatsIndex; i++)
       {
-        sprintf(text, "%2.2f ", floats[i]);
-        fputs(text, fp_out);
+        sprintf(copy, "%2.2f ",floats[i]);
+        strcat(text, copy);
       }
-      sprintf(text, "%s", "p:");
-      fputs(text, fp_out);
-       for(int c = 0; c < pointIndex; c++){
-      sprintf(text, "%s", "(");
-      fputs(text, fp_out);
-      if(point[c] == (int) point[c]){
-        sprintf(text, "%.0f", point[c]);
-        fputs(text, fp_out);
-      }else{
-        sprintf(text, "%2.2f", point[c]);
-        fputs(text, fp_out);
-      }
-            
-      sprintf(text, "%s", ",");
-      fputs(text, fp_out);
-      c++;
-      if(point[c] == (int) point[c]){
-        sprintf(text, "%.0f", point[c]);
-        fputs(text, fp_out);
-      }
-      else{
-        sprintf(text, "%2.2f", point[c]);
-        fputs(text, fp_out);
-      }
+
       
-      sprintf(text, "%s ", ") ");
-      fputs(text, fp_out);
-    } 
+      strcat(text, "p:");
+      for(int c = 0; c < pointIndex; c++){
+      
+        strcat(text, "(");
+        if(point[c] == (int) point[c]){        
+          sprintf(copy, "%.0f,",point[c]);
+        }else{
+          sprintf(copy, "%2.2f,",point[c]);
+        }  
+        strcat(text, copy);
+        c++;
+        
+        if(point[c] == (int) point[c]){
+          sprintf(copy, "%.0f",point[c]);
+        }
+        else{
+          sprintf(copy, "%2.2f",point[c]);
+        }
+        strcat(text, copy);
+        sprintf(copy, "%s ", ")");
+        strcat(text, copy);
+    }
+    fputs(text, fp_out);
+    fputs("\n",fp_out);
   }
   fclose(fp_in);
   fclose(fp_out);
@@ -133,6 +130,8 @@ int main(){
 
 int isNumber(char ch[]){
   int tam = strlen(ch);
+  if(strchr(ch, '\n') != NULL)
+    tam--;
   for(int i = 0; i < tam; i++){
     if((ch[i] > 57 || ch[i] < 48) && (ch[i] != '.' && ch[i] != '-'))
       return 0;
@@ -140,7 +139,7 @@ int isNumber(char ch[]){
   return 1;
 }
 
-int isPoint(char ch[]){
+int isPoint(char ch[]){ 
   if(strchr(ch, '(') != NULL){   
     return 1;
   }
@@ -172,10 +171,10 @@ void ordenaInteiros(int ints[], int intsIndex) {
      }
 }
 void ordenaString(char string[][255], int stringIndex) {
-    int j;
+    int j, i;
     for (j = 1; j < stringIndex; j++) {
       char key[255];
-      int i = j - 1;;
+      i = j - 1;;
       strcpy(key, string[j]);
       while (i >= 0 && strcmp(string[i], key) > 0) {
           strcpy(string[i+1], string[i]);
@@ -183,48 +182,6 @@ void ordenaString(char string[][255], int stringIndex) {
       }
       strcpy(string[i+1], key);
     }
-}
-
-void ordenaPontos(char point[][255], int pointIndex) {
-    int j;
-    for (j = 1; j < pointIndex; j++) {
-      char key[255];
-      int i = j - 1;;
-      strcpy(key, point[j]);
-      while (i >= 0 && strcmp(point[i], key) > 0) {
-          strcpy(point[i+1], point[i]);
-          i--;
-      }
-      strcpy(point[i+1], key);
-    }
-  int tam=0;
-  char copia1[15][255], copia2[15][255];
-  for(j=0;j<pointIndex;j++) {
-    if(point[j][1] == '-') {
-      tam++;
-      strcpy(copia1[j],point[j]);
-    } else {
-      break;
-    }
-  }
-  int i=0;
-  j--;
-  while(j>=0) {
-    strcpy(point[i], copia1[j]);
-    i++;
-    j--;
-  }
-  for(j=tam;j<pointIndex;j++) {
-    strcpy(copia2[j],point[j]);
-  }
-  
-  j=5;
-  while(j<pointIndex) {
-    strcpy(point[i], copia2[j]);
-    i++;
-    j++;
-  }
-  
 }
 
 float distanceCalc(float x1, float y1, float x2, float y2)
@@ -251,19 +208,15 @@ void insertionSort(float A[], int length)
 
 void ordenarPontos(float sort[], float noSort[], float num[], int j, int k){
   int i = 0;
-  int n[k];
-  // int k = sizeof(num[0]) / sizeof(num);
-  // printf("%d", k);
+  float n[k];
   for(int c = 0; c < j; c++){   
       int k = 0;
       for(int a = 0; a < j ; k += 2 , a++){
-        if(sort[c] == noSort[a]){
-          printf("(%.0f)\t", num[k]);          
+        if(sort[c] == noSort[a]){       
           n[i] = num[k];
           i++;
           n[i] = num[k+1];
           i++;
-          printf("(%.0f)\n", num[k+1]);
           break;
         }
       }
