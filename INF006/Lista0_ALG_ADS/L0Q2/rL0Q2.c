@@ -44,6 +44,9 @@ int main(){
       int j = 0;
       slice = strtok(file, splitHere);
       while (slice != NULL){
+        int tam = strlen(slice);
+        if(strchr(slice, '\n') != NULL)
+          slice[tam - 1] = '\0';
         if(isNumber(slice)){
           if(strstr(slice, ".") == NULL){
              ints[intsIndex] = atoi(slice);         
@@ -59,7 +62,7 @@ int main(){
           pointIndex++;  
           point[pointIndex] = y;
           pointIndex++;
-        }else{
+        }else{          
           strcpy(string[stringIndex],slice);
           stringIndex++;  
         }
@@ -212,7 +215,7 @@ void ordenarPontos(float sort[], float noSort[], float num[], int j, int k){
   for(int c = 0; c < j; c++){   
       int k = 0;
       for(int a = 0; a < j ; k += 2 , a++){
-        if(sort[c] == noSort[a]){       
+        if(sort[c] == noSort[a]){
           n[i] = num[k];
           i++;
           n[i] = num[k+1];

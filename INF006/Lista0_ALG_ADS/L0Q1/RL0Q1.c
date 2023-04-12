@@ -33,9 +33,7 @@ int main(){
     float distances[100];
     i = j = c= 0;    
     distance = shortcut = 0;
-    //points (−2,−1) (4,2) (4,0) (2,2) (8,6)
     char *p = strtok(file, point);
-    // printf("%s\n", p);
     char *slice  =  strtok(p, splitHere);
        
     while (slice != NULL){
@@ -47,7 +45,7 @@ int main(){
     for(int c = 0; c < i - 3;c = c + 2){
       distance+= distanceCalc(number[c], number[c + 1], number[c + 2], number[c + 3]);      
     }
-    //printf("%d\n", i);  
+
     for(int c = 0; c < i;c += 2){      
       distances[j] = distanceCalc(number[c], number[c + 1], 0, 0); 
       noSort[j] = distanceCalc(number[c], number[c + 1], 0, 0);
@@ -57,27 +55,10 @@ int main(){
     insertionSort(distances, j);
     shortcut = distanceCalc(number[0], number[1], number[i - 2], number[i - 1]);
 
-    
-    // printf("%d\n", j);  
-    // for(int c = 0; c<j ;c++){
-    //   printf("%2.2f\t\t\t", distances[c]);
-    //   printf("%2.2f\n", noSort[c]);
-    // }
-
     sprintf(text, "points ");
     fputs(text, fp_out);
 
-    // for (int i = 0; i < j; i++)
-    // {
-    //   sprintf(text, "(%d,%d) ", number[index[i]], number[index[i]+1]);
-    //   fputs(text, fp_out);
-    // }
-    
     ordenarPontos(distances, noSort, number, j, i);
-
-    // for(int c = 0; c < i; c++){
-    //   printf("%2.2f ", number[c]);
-    // }
     
     for(int c = 0; c < i; c++){
       sprintf(text, "%s", "(");
@@ -111,9 +92,6 @@ int main(){
     sprintf(text, "%2.2f  ", distance);
     fputs(text, fp_out);
     
-    
-    //printf("%d %d %d %d\n", number[0], number[1], number[i - 2], number[i - 1]);
-    //printf("%2.2f\n", shortcut);
     sprintf(text, "%s", "shortcut: ");
     fputs(text, fp_out);
     sprintf(text, "%2.2f", shortcut);
@@ -154,19 +132,15 @@ void insertionSort(float A[], int length)
 
 void ordenarPontos(float sort[], float noSort[], float num[], int j, int k){
   int i = 0;
-  int n[k];
-  // int k = sizeof(num[0]) / sizeof(num);
-  // printf("%d", k);
+  float n[k];
   for(int c = 0; c < j; c++){   
       int k = 0;
       for(int a = 0; a < j ; k += 2 , a++){
         if(sort[c] == noSort[a]){
-          //printf("(%.0f)\t", num[k]);          
           n[i] = num[k];
           i++;
           n[i] = num[k+1];
           i++;
-          //printf("(%.0f)\n", num[k+1]);
           break;
         }
       }
