@@ -8,11 +8,12 @@ void putOnStack(char *nome);
 void insertionSortPlus(char *nome);
 void push(char *nome);
 void pop();
+int numberHouses(int num);
 
 char stack[100][255];
 int tos = 0;
-char text[255] = "";
-char copy[255];
+char *text = NULL;
+
 
 int main(){
   
@@ -32,7 +33,6 @@ int main(){
         int qtdNomes = 0;   
         char space[] = " ";
         tos = 0;
-        sprintf(text, "%s", "");
       
         int tam = strlen(file);
         if(strchr(file, '\n') != NULL)
@@ -47,33 +47,57 @@ int main(){
         for(int i = 0 ; i < qtdNomes; i++){
           putOnStack(nomes[i]);
         }
+        
         tam = strlen(text);
-        if(text[tam -1] == ' ')
+        if(text[tam - 1] == ' ')
           text[tam - 1] = '\0';
-      
+
         fputs(text, fp_out);
         fputs("\n", fp_out);
-    }
 
+        text = NULL;
+    }
+    
+    free(text);
     fclose(fp_in);
     fclose(fp_out);
     return EXIT_SUCCESS;
 }
 
+int numberHouses(int num) {
+  int count = 1;
+  while (num / 10 != 0) {
+    count++;
+    num /= 10;
+  }
+  return count;
+};
+
 void putOnStack(char *nome){
   if(!tos)
-    push(nome);
+    push(nome);    
   else
     insertionSortPlus(nome);
 }
 
 
 void push(char *nome){
+  char *copy = NULL;
+  int tam = strlen(nome) + 7;
+  
   strcpy(stack[tos], nome);
   tos++;
+  copy = malloc(tam);
   sprintf(copy, "%s%s ","push-", nome);
-  strcat(text, copy);
-  //printf("push-%s\n", nome);
+  tam = text == NULL ? 1 : strlen(text);
+  
+  tam += strlen(copy) + 1;
+  if(text)
+    text = realloc(text, tam);
+  else
+    text = malloc(tam);
+  strcat(text, copy);  
+  free(copy);
 }
 
 void pop(){
@@ -82,16 +106,21 @@ void pop(){
 
 void insertionSortPlus(char *nome){
   int Pop = 0;
-  char pops[100][255];
+  char pops[255][255];
   for(int i = tos - 1; i >= 0 && strcmp(stack[i], nome) > 0; i--){
     strcpy(pops[Pop], stack[i]);
     pop();
     Pop++;
   }  
   if(Pop){
-    sprintf(copy, "%d%s ", Pop, "x-pop");
-    strcat(text, copy);
-    //printf("%dx-pop\n", Pop);    
+    char *popcopy = NULL;
+    int tam = numberHouses(Pop) + 7;
+    popcopy = malloc(tam);
+    sprintf(popcopy, "%d%s ", Pop, "x-pop");
+    tam = strlen(text) + strlen(popcopy) + 1;
+    text = realloc(text, tam);
+    strcat(text, popcopy);
+    free(popcopy);
   }
   push(nome);
   for(int i = Pop - 1; i >= 0; i--){
