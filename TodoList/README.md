@@ -1,9 +1,9 @@
 # TodoList Simples em C com Integração com o Obsidian
 ## Versão 1.0
 
-<img height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
-<img height="40" src="https://pic4.zhimg.com/v2-958538f359123bde209d3baf7ed2b753_ipico.jpg" />          
-
+```
+<img height="120" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" /><img height="120" src="https://pic4.zhimg.com/v2-958538f359123bde209d3baf7ed2b753_ipico.jpg" />          
+```
 
 Este é um projeto de TodoList em C que se integra com o Obsidian, permitindo que você gerencie suas tarefas e sincronize-as com o Obsidian. A facilidade que o software traz é a formatação dos dados, embora isso não seja tão complicado de se fazer manualmente.
 
@@ -17,7 +17,7 @@ Este é um projeto de TodoList em C que se integra com o Obsidian, permitindo qu
 ## Integração com o Obsidian
 
 Para sincronizar suas listas de tarefas com o Obsidian você deve no código mudar o caminho do namefile para o caminho dos arquivos do Obsidian da sua máquina.
-```C
+CC
     char *namefile = "C:/Caminho/Para/Onde/Fica/Obsidian/";
 ```
 
