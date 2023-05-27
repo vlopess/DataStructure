@@ -32,8 +32,8 @@ int main(){
 
     char file[255];
   
-    No *start;
-    No *end;
+    No *start = NULL;
+    No *end = NULL;
   
     while(fgets(file, 255, fp_in) != NULL){          
       
@@ -156,11 +156,13 @@ void freeAll(No *start){
   while(i){
     next = i->next;
     Sub *sub = i->sub;
-    do{
-      Sub *s = sub->next;
-      free(sub);
-      sub = s;
-    }while(sub != i->sub);
+    if(sub){
+      do{
+        Sub *s = sub->next;
+        free(sub);
+        sub = s;
+      }while(sub != i->sub);
+    }
     free(i);
     i = next;
   }
@@ -169,7 +171,7 @@ void freeAll(No *start){
 
 void create(No *i,No **start, No **end){
   
-  if(*start == NULL){
+  if(*end == NULL || *start == NULL){
     i->next = NULL;
     i->prior = NULL;
     *end = i;
@@ -203,5 +205,49 @@ void create(No *i,No **start, No **end){
   old->next = i;
   i->next = NULL;
   i->prior = old;
+  *end = i;
+}
+
+void sortSub(Sub *i, Sub **start, Sub **end){
+  if(*start == NULL){
+    i->next = i;
+    *start = i;
+    *end = i;
+    return;
+  }
+
+  Sub *p = *start;
+  Sub *old = NULL;
+
+  do
+  {
+    if(i->num > p->num){
+      old = p;
+      p = p->next;
+    }
+    else
+    {
+      if(p->next != *start){
+        Sub *aux = *start;
+        do
+        {
+         if(aux->next == p){
+          aux->next = i;
+          break;
+         }           
+          aux = aux->next;
+        }while(aux != *start);
+        i->next = p;
+        return;
+      }
+      i->next = p;
+      p->next = i;
+      *start = i;
+      return;  
+    }
+  }while(p != *start);
+  
+  old->next = i;
+  i->next = *start;
   *end = i;
 }
