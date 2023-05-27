@@ -1,8 +1,8 @@
 # TodoList Simples em C com Integração com o Obsidian
 ## Versão 1.0
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
-<img src="https://pic4.zhimg.com/v2-958538f359123bde209d3baf7ed2b753_ipico.jpg" />          
+<img height="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" />
+<img height="40" src="https://pic4.zhimg.com/v2-958538f359123bde209d3baf7ed2b753_ipico.jpg" />          
 
 
 Este é um projeto de TodoList em C que se integra com o Obsidian, permitindo que você gerencie suas tarefas e sincronize-as com o Obsidian. A facilidade que o software traz é a formatação dos dados, embora isso não seja tão complicado de se fazer manualmente.
@@ -24,5 +24,5 @@ Para sincronizar suas listas de tarefas com o Obsidian você deve no código mud
 ## Pré-requisitos
 
 - [GCC](https://gcc.gnu.org/) (ou outro compilador C) instalado.
-- [Obsidian](https://obsidian.md/) instalado (opcional).
+- [Obsidian](https://obsidian.md/) instalado.
 
