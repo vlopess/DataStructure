@@ -7,6 +7,7 @@
 char *timeNow();
 int menu();
 void createToDoList();
+void salvar(FILE *file);
 void sair();
 
 char *text = NULL;
@@ -29,10 +30,11 @@ char *timeNow(){
 
 int menu(void){
   int option;
-  puts("\t\t Welcome to the Todo");
-  puts("[1]Create Todo");
-  puts("[2]Exit");
-  printf("> ");
+  system("cls");
+  puts("\t\t\t\t\t\t\t Welcome to the Todo");
+  puts("\t\t\t\t\t[1]Create Todo");
+  puts("\t\t\t\t\t[2]Exit");
+  printf("\t\t\t\t\t> ");
   do{
     scanf("%d", &option);
   }while(option!=1 && option!=2);
@@ -41,15 +43,15 @@ int menu(void){
 
 void createToDoList(){  
   ToDOList list;
-  char *namefile = "C:/Users/User/OneDrive/Documentos/All Obsidian Notes/ToDo/";
+  char *pathinit = "C:/Users/User/OneDrive/Documentos/All Obsidian Notes/ToDo/";
   fflush(stdin);
-  printf("Nome da Tarefa: ");
+  printf("\t\t\t\t\tNome da Tarefa: ");
   fgets(list.name, sizeof(list.name), stdin);
-  int tam = strlen(namefile) + strlen(list.name) + strlen(".md");
+  int tam = strlen(pathinit) + strlen(list.name) + strlen(".md");
   char *path = malloc(tam * sizeof(char));
   tam = strlen(list.name);
   list.name[tam-1] = '\0';
-  strcpy(path, namefile);
+  strcpy(path, pathinit);
   strcat(path, list.name);
   strcat(path, ".md");
   FILE *fp_out = fopen(path, "w");  
@@ -57,7 +59,7 @@ void createToDoList(){
   tam = strlen(list.hora) + 4;
   text = malloc(tam);
   sprintf(text, "==%s\n", list.hora);
-  printf("Description: ");
+  printf("\t\t\t\t\tDescription: ");
   fgets(list.Description, sizeof(list.Description), stdin);
   tam = strlen("**Descricao: ") + strlen(list.Description) + strlen(text) + 3;
   text = realloc(text, tam);
@@ -68,33 +70,49 @@ void createToDoList(){
   do
   {    
     fflush(stdin);
-    printf("ToDo: ");
+    printf("\t\t\t\t\tToDo: ");
     fgets(list.todo, sizeof(list.todo), stdin);
     tam = strlen("- [ ]  ") + strlen(list.todo) + 3 + strlen(text);
     text = realloc(text, tam);
     strcat(text, "- [ ]  ");
     strcat(text, list.todo);
-    strcat(text, "\n");
     fflush(stdin);
-    printf("Deseja adicionar mais um ToDo? (y/n)");
-    scanf("%c", &c);
-  } while (c != 'n');
-  fputs(text, fp_out);  
+    do{
+      printf("\n\t\t\t\t\tDeseja adicionar mais um ToDo? (y/n)");
+      scanf("%c", &c);
+    }while(c != 'y' && c != 'n');
+  } while (c == 'y');
+  salvar(fp_out);  
   fclose(fp_out);
+  free(text);
 }
 
 void sair(){
   int count = 0;
   while(!count){
     system("cls");
-    printf("\t    Saindo");
+    printf("\t\t\t\t\t    Saindo");
     for(int i = 0 ; i < 3; i++){
       printf(".");
       sleep(1);
     }
     count++;
   }
-  puts("\n\tCreate by Victor");
+  puts("\n\t\t\t\t\tCreate by Victor");
   sleep(1);
   exit(0);
+}
+
+void salvar(FILE *file){
+  int count = 0;
+  while(!count){
+    system("cls");
+    printf("\t\t\t\t\t   Salvando");
+    for(int i = 0 ; i < 3; i++){
+      printf(".");
+      sleep(1);
+    }
+    fputs(text, file);
+    count++;
+  }
 }
