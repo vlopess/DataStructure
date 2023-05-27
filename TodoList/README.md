@@ -12,7 +12,8 @@ Este é um projeto de TodoList em C que se integra com o Obsidian, permitindo qu
 - Criação: adicione tarefas basicas com descrição e os afazeres, sendo elas formatadas pelo programa
 - Sincronização com o Obsidian: mantenha suas listas de tarefas atualizadas e sincronizadas com suas anotações no Obsidian.
 - Sobre a formatação: possue uma formatação simples com um titulo, data que foi feito, uma descrição e os ToDo's, como é mostrado abaixo:
-![foto do resultado](https://imgbox.com/KuFGkBGs)
+<img src="https://imgbox.com/KuFGkBGs"/>      
+
 
 ## Integração com o Obsidian
 
