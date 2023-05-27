@@ -15,7 +15,7 @@ Este é um projeto de TodoList em C que se integra com o Obsidian, permitindo qu
 ## Integração com o Obsidian
 
 Para sincronizar suas listas de tarefas com o Obsidian você deve no código mudar o caminho do namefile para o caminho dos arquivos do Obsidian da sua máquina.
-CC
+```C
     char *namefile = "C:/Caminho/Para/Onde/Fica/Obsidian/";
 ```
 
