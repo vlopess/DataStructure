@@ -108,3 +108,4 @@ void freeMemory(List *start){
     i = i->next;
   }
 }
+
