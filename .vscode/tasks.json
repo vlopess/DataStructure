@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build GTK Application",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-Wall",
+                "-g",
+                "teste.c",
+                "-o",
+                "teste",
+                "`pkg-config --cflags --libs gtk+-3.0`"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
